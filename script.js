@@ -60,6 +60,13 @@ const dataFile =     [
     let container = document.querySelector('.slider__container');
     let buttonRight = document.querySelector('.slider__control_right');
     let buttonLeft = document.querySelector('.slider__control_left');
+    let dateFormatter = new Intl.DateTimeFormat('ru', {
+        month: "long",
+        day: "numeric"
+    });
+    let dayFormatter = new Intl.DateTimeFormat('ru', {
+        weekday: "long"
+    });
     buttonLeft.disabled = true;
 
     const sliderRight = function() {
@@ -90,6 +97,13 @@ const dataFile =     [
             buttonRight.disabled = false;
         }
     });
+
+    const headerFiller = function() {
+        let headerDate = document.querySelector('.location');
+        let date = Date.now();
+        headerDate.innerHTML = 'Самара, ' + dateFormatter.format(date) + ', ' + dayFormatter.format(date);
+    };
+
     const itemFiller = function() {
         let dayList = document.querySelectorAll('.item__day');
         let dateList = document.querySelectorAll('.item__date');
@@ -101,13 +115,7 @@ const dataFile =     [
         for (let i = 0; i< dayList.length; i++) {
             let newImg = document.createElement('img');
             let date = dataFile[i].date;
-            let dayFormatter = new Intl.DateTimeFormat('ru', {
-                weekday: "long"
-            });
-            let dateFormatter = new Intl.DateTimeFormat('ru', {
-                month: "long",
-                day: "numeric"
-            });
+
             dayList[i].innerHTML = dayFormatter.format(date);
             dateList[i].innerHTML = dateFormatter.format(date);
             tDayList[i].innerHTML = 'днём +' + dataFile[i].temperature.day + '°';
@@ -129,6 +137,7 @@ const dataFile =     [
             }
         }
     };
+    headerFiller();
     itemFiller();
     // dayList.innerHTML = formatter.format(date);
 
