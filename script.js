@@ -55,11 +55,11 @@ const dataFile =     [
 
 (function () {
     let position = 0;
-    let maxPos = -512;
-    let minPos = 0;
+    const maxPos = -512;
+    const minPos = 0;
     let container = document.querySelector('.slider-container');
-    let buttonRight = document.querySelector('.slider-right');
-    let buttonLeft = document.querySelector('.slider-left');
+    let buttonRight = document.querySelector('.slider__control_right');
+    let buttonLeft = document.querySelector('.slider__control_left');
     buttonLeft.disabled = true;
 
     const sliderRight = function() {
