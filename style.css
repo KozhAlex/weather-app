@@ -1,10 +1,16 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .header {
     text-align: center;
     font-family: sans-serif;
 }
 
-.body {
-    background: ghostwhite;
+body {
+    background-color: ghostwhite;
 }
 
 .location {
@@ -13,14 +19,23 @@
 }
 
 .slider {
+ }
+
+.slider__box {
     position: relative;
-    width: 768px;
-    height: auto;
-    margin: 10px auto;
-    overflow: hidden;
+    width: 1024px;
+    margin: auto;
 }
 
-.slider-container {
+.slider__wrapper {
+    position: relative;
+    height: auto;
+    margin: auto;
+    overflow: hidden;
+
+}
+
+.slider__container {
     position: relative;
     width: 1024px;
     display: flex;
@@ -28,55 +43,55 @@
     transition: transform 0.6s ease;
 }
 
-.slider-item {
+.slider__item {
     align-self: stretch;
     width: 256px;
-    background: aliceblue;
-    outline: white solid 2px;
+    background-color: white;
+    outline: ghostwhite solid 2px;
 }
 
-.item-day, .item-date, .item-image, .item-tempDay, .item-tempNight, .item-cloud, .item-rain {
+.item__day, .item__date, .item__image, .item__tempDay, .item__tempNight, .item__cloud, .item__rain {
     text-align: center;
     font-family: sans-serif;
 }
 
-.item-day {
+.item__day {
     margin-top: 15px;
     font-weight: 600;
 }
 
-.item-date {
+.item__date {
     margin-top: 12px;
     font-weight: bold;
     font-size: 26px;
 }
-.item-image {
+.item__image {
     margin-top: -20px;
 }
 
-.item-tempDay {
+.item__tempDay {
     font-weight: bold;
     font-size: 26px;
 }
 
-.item-tempNight {
+.item__tempNight {
     font-weight: 600;
     font-size: 18px;
 }
 
-.item-cloud {
+.item__cloud {
     margin-top: 15px;
     font-weight: 600;
 }
 
-.item-rain {
+.item__rain {
     margin-bottom: 15px;
     font-weight: 600;
 }
 
 .slider__control {
     position: absolute;
-    top: 45%;
+    top: 50%;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -85,17 +100,16 @@
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
     height: 50px;
+    transform: translateY(-50%);
 }
 
 .slider__control_left {
-    left: 0;
+    left: -30px;
 }
 
 .slider__control_right {
-    right: 0;
-    border-radius: 3px 0 0 3px;
+    right: -30px;
 }
 
 .slider__control:hover {
