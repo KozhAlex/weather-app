@@ -1,4 +1,4 @@
-const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"cloudiness":"ясно","snow":false,"rain":true},{"date":1564430400000,"temperature":{"night":0,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564516800000,"temperature":{"night":6,"day":20},"cloudiness":"ясно","snow":true,"rain":false},{"date":1564603200000,"temperature":{"night":10,"day":28},"cloudiness":"облачно","snow":false,"rain":true},{"date":1564689600000,"temperature":{"night":2,"day":16},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564776000000,"temperature":{"night":9,"day":24},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564862400000,"temperature":{"night":9,"day":27},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564948800000,"temperature":{"night":6,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1565035200000,"temperature":{"night":9,"day":23},"cloudiness":"облачно","snow":false,"rain":true},{"date":1565121600000,"temperature":{"night":6,"day":28},"cloudiness":"облачно","snow":false,"rain":true}];
+const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"cloudiness":"ясно","snow":false,"rain":true},{"date":1564430400000,"temperature":{"night":0,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564516800000,"temperature":{"night":6,"day":20},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564603200000,"temperature":{"night":10,"day":28},"cloudiness":"облачно","snow":false,"rain":true},{"date":1564689600000,"temperature":{"night":2,"day":16},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564776000000,"temperature":{"night":9,"day":24},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564862400000,"temperature":{"night":9,"day":27},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564948800000,"temperature":{"night":6,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1565035200000,"temperature":{"night":9,"day":23},"cloudiness":"облачно","snow":false,"rain":true},{"date":1565121600000,"temperature":{"night":6,"day":28},"cloudiness":"облачно","snow":false,"rain":true}];
 
 
 
@@ -64,7 +64,7 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
 
     const slideCreator = () => {
         for (let i = 0; i < filteredDays.length; i++) {
-            let newSlide = document.createElement("div");
+            const newSlide = document.createElement("div");
             newSlide.setAttribute('class', 'slider__item');
             container.appendChild(newSlide);
         }
@@ -76,20 +76,18 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
     const itemCreator = () => {
         sliderItem = document.querySelectorAll('.slider__item');
         for (let i = 0; i < sliderItem.length; i++) {
-            newDay = document.createElement('div');
+            const newDay = document.createElement('div');
             newDay.setAttribute("class", "item__day");
-            newDate = document.createElement('div');
+            const newDate = document.createElement('div');
             newDate.setAttribute("class", "item__date");
-            newTDay = document.createElement('div');
+            const newTDay = document.createElement('div');
             newTDay.setAttribute("class", "item__temp-day");
-            newTNight = document.createElement('div');
+            const newTNight = document.createElement('div');
             newTNight.setAttribute("class", "item__temp-night");
-            newCloud = document.createElement('div');
+            const newCloud = document.createElement('div');
             newCloud.setAttribute("class", "item__cloud");
-            newRain = document.createElement('div');
+            const newRain = document.createElement('div');
             newRain.setAttribute("class", "item__rain");
-            newSnow = document.createElement('div');
-            newSnow.setAttribute("class", "item__snow");
 
             sliderItem[i].appendChild(newDay);
             sliderItem[i].appendChild(newDate);
@@ -97,18 +95,17 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
             sliderItem[i].appendChild(newTNight);
             sliderItem[i].appendChild(newCloud);
             sliderItem[i].appendChild(newRain);
-            sliderItem[i].appendChild(newSnow);
         }
     };
     itemCreator();
 
     const itemFiller = () => {
-        dayList = document.querySelectorAll('.item__day');
-        dateList = document.querySelectorAll('.item__date');
-        tDayList = document.querySelectorAll('.item__temp-day');
-        tNightList = document.querySelectorAll('.item__temp-night');
-        cloudList = document.querySelectorAll('.item__cloud');
-        rainList = document.querySelectorAll('.item__rain');
+        const dayList = document.querySelectorAll('.item__day');
+        const dateList = document.querySelectorAll('.item__date');
+        const tDayList = document.querySelectorAll('.item__temp-day');
+        const tNightList = document.querySelectorAll('.item__temp-night');
+        const cloudList = document.querySelectorAll('.item__cloud');
+        const rainList = document.querySelectorAll('.item__rain');
         for (let i = 0; i < sliderItem.length; i++) {
             if (i !== 0) {
                 dayList[i].innerHTML = dayFormatter.format(filteredDays[i].date);
@@ -120,7 +117,7 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
             tNightList[i].innerHTML = 'ночью +' + filteredDays[i].temperature.night + '°';
             cloudList[i].innerHTML = filteredDays[i].cloudiness + ',';
 
-            newImg = document.createElement('img');
+            let newImg = document.createElement('img');
             if (filteredDays[i].rain === true) {
                 newImg.setAttribute("src", "images/Rain2.png");
                 sliderItem[i].insertBefore(newImg, tDayList[i]);
