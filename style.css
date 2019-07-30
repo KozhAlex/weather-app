@@ -50,7 +50,7 @@ body {
     outline: ghostwhite solid 2px;
 }
 
-.item__day, .item__date, .item__image, .item__tempDay, .item__tempNight, .item__cloud, .item__rain {
+.item__day, .item__date, .item__image, .item__temp-day, .item__temp-night, .item__cloud, .item__rain {
     text-align: center;
     font-family: sans-serif;
 }
@@ -69,12 +69,12 @@ body {
     margin-top: -20px;
 }
 
-.item__tempDay {
+.item__temp-day {
     font-weight: bold;
     font-size: 26px;
 }
 
-.item__tempNight {
+.item__temp-night {
     font-weight: 600;
     font-size: 18px;
 }

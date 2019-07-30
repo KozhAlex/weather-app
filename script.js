@@ -105,15 +105,41 @@ const dataFile =     [
     };
 
     const itemCreator = function() {
-
+        sliderItem = document.querySelectorAll('.slider__item');
+        let newDay = document.createElement('p');
+        newDay.setAttribute("class", ".item__day");
+        let newDate = document.createElement('p');
+        newDate.setAttribute("class", ".item__date");
+        let newImg = document.createElement('img');
+        let newTDay = document.createElement('p');
+        newTDay.setAttribute("class", ".item__temp-day");
+        let newTNight = document.createElement('p');
+        newTNight.setAttribute("class", ".item__temp-night");
+        let newCloud = document.createElement('p');
+        newCloud.setAttribute("class", ".item__cloud");
+        let newRain = document.createElement('p');
+        newRain.setAttribute("class", ".item__rain");
+        let newSnow = document.createElement('p');
+        newSnow.setAttribute("class", ".item__snow");
+        for (let i = 0; i < sliderItem.length; i++) {
+            sliderItem[i].appendChild(newDay);
+            sliderItem[i].appendChild(newDate);
+            sliderItem[i].appendChild(newImg);
+            sliderItem[i].appendChild(newTDay);
+            sliderItem[i].appendChild(newTNight);
+            sliderItem[i].appendChild(newCloud);
+            sliderItem[i].appendChild(newRain);
+            sliderItem[i].appendChild(newSnow);
+        }
     };
+    itemCreator();
 
     const itemFiller = function() {
         let dayList = document.querySelectorAll('.item__day');
         let dateList = document.querySelectorAll('.item__date');
         let imageList = document.querySelectorAll('.item__image');
-        let tDayList = document.querySelectorAll('.item__tempDay');
-        let tNightList = document.querySelectorAll('.item__tempNight');
+        let tDayList = document.querySelectorAll('.item__temp-day');
+        let tNightList = document.querySelectorAll('.item__temp-night');
         let cloudList = document.querySelectorAll('.item__cloud');
         let rainList = document.querySelectorAll('.item__rain');
         for (let i = 0; i< dayList.length; i++) {
@@ -123,6 +149,7 @@ const dataFile =     [
             tDayList[i].innerHTML = 'днём +' + dataFile[i].temperature.day + '°';
             tNightList[i].innerHTML = 'ночью +' + dataFile[i].temperature.night + '°';
             cloudList[i].innerHTML = dataFile[i].cloudiness + ',';
+            incrementDate();
 
             if (dataFile[i].rain === true) {
                 newImg.setAttribute("src", "images/Rain2.png");
