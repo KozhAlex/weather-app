@@ -1,110 +1,40 @@
-const dataFile =     [
-    {
-        date: 1559419200000,
-        temperature: {
-            night: 16,
-            day: 26,
-        },
-        cloudiness: 'ясно',
-        snow: false,
-        rain: false,
-    },
-    {
-        date: 1559505600000,
-        temperature: {
-            night: 19,
-            day: 29,
-        },
-        cloudiness: 'облачно',
-        snow: false,
-        rain: true,
-    },
-    {
-        date: 1559592000000,
-        temperature: {
-            night: 12,
-            day: 21,
-        },
-        cloudiness: 'облачно',  // 86400000
-        snow: false,
-        rain: false,
-    },
-        {
-        date: 1559678400000,
-        temperature: {
-            night: 19,
-            day: 29,
-        },
-        cloudiness: 'облачно',
-        snow: false,
-        rain: true,
-    },
-    {
-        date: 1559847600000,
-        temperature: {
-            night: 12,
-            day: 21,
-        },
-        cloudiness: 'облачно',
-        snow: false,
-        rain: false,
-    },
-    {
-        date: 1559592000000,
-        temperature: {
-            night: 12,
-            day: 21,
-        },
-        cloudiness: 'облачно',  // 86400000
-        snow: false,
-        rain: false,
-    },
-    {
-        date: 1559678400000,
-        temperature: {
-            night: 19,
-            day: 29,
-        },
-        cloudiness: 'облачно',
-        snow: false,
-        rain: true,
-    },
-    {
-        date: 1559847600000,
-        temperature: {
-            night: 12,
-            day: 21,
-        },
-        cloudiness: 'облачно',
-        snow: false,
-        rain: false,
-    },
-];
+const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"cloudiness":"ясно","snow":true,"rain":true},{"date":1564430400000,"temperature":{"night":0,"day":16},"cloudiness":"облачно","snow":false,"rain":true},{"date":1564516800000,"temperature":{"night":6,"day":20},"cloudiness":"ясно","snow":true,"rain":false},{"date":1564603200000,"temperature":{"night":10,"day":28},"cloudiness":"облачно","snow":true,"rain":true},{"date":1564689600000,"temperature":{"night":2,"day":16},"cloudiness":"ясно","snow":true,"rain":false},{"date":1564776000000,"temperature":{"night":9,"day":24},"cloudiness":"облачно","snow":true,"rain":false},{"date":1564862400000,"temperature":{"night":9,"day":27},"cloudiness":"облачно","snow":true,"rain":false},{"date":1564948800000,"temperature":{"night":6,"day":16},"cloudiness":"облачно","snow":true,"rain":false},{"date":1565035200000,"temperature":{"night":9,"day":23},"cloudiness":"облачно","snow":false,"rain":true},{"date":1565121600000,"temperature":{"night":6,"day":28},"cloudiness":"облачно","snow":false,"rain":true}];
 
 
 
 (function () {
     let position = 0;
-    let n = 8;
-    let maxPos = (-256*(n-4));
     let minPos = 0;
     let container = document.querySelector('.slider__container');
     let buttonRight = document.querySelector('.slider__control_right');
     let buttonLeft = document.querySelector('.slider__control_left');
     let headerDate = document.querySelector('.location');
-    let date = Date.now();
+    let date = (Date.now()-(24*60*60*1000));
     buttonLeft.disabled = true;
     let dateFormatter = new Intl.DateTimeFormat('ru', {month: "long", day: "numeric"});
     let dayFormatter = new Intl.DateTimeFormat('ru', {weekday: "long"});
+    let dayStart = new Date();
+    dayStart.setHours(0,0,0,0);
+
+
+    const daysFilter = function(dailyInfo) {
+        return dailyInfo.date >= dayStart.getTime();
+    };
+
+    const filteredDays = dataFile.filter(daysFilter);
+
+    const sliderItemWidth = 256;
+
+    let maxPos = -sliderItemWidth*(filteredDays.length-4);
 
 
     const sliderRight = function() {
-        position = position - 256;
+        position = position - sliderItemWidth;
         container.style.transform = 'translateX(' + position + 'px)';
     };
 
     const sliderLeft = function() {
-        position = position + 256;
+        position = position + sliderItemWidth;
         container.style.transform = 'translateX(' + position + 'px)';
     };
 
@@ -128,18 +58,11 @@ const dataFile =     [
     });
 
     const headerFiller = function() {
-        headerDate.innerHTML = 'Самара, ' + dateFormatter.format(date) + ', ' + dayFormatter.format(date);
+        headerDate.innerHTML = 'Самара, ' + dateFormatter.format(filteredDays[0].date) + ', ' + dayFormatter.format(filteredDays[0].date);
     };
-
-    const incrementDate = function() {
-        date = date+(24*60*60*1000);
-        return date;
-    };
-
-
 
     const slideCreator = function() {
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i < filteredDays.length; i++) {
             newSlide = document.createElement("div");
             newSlide.setAttribute('class', 'slider__item');
             container.appendChild(newSlide);
@@ -147,7 +70,7 @@ const dataFile =     [
     };
     slideCreator();
 
-    container.style.width = (256*n) + 'px';
+    container.style.width = (256*filteredDays.length) + 'px';
 
     const itemCreator = function() {
         sliderItem = document.querySelectorAll('.slider__item');
@@ -188,20 +111,20 @@ const dataFile =     [
         for (let i = 0; i < sliderItem.length; i++) {
             newImg = document.createElement('img');
             if (i !== 0) {
-                dayList[i].innerHTML = dayFormatter.format(date);
+                dayList[i].innerHTML = dayFormatter.format(filteredDays[i].date);
             } else {
                 dayList[i].innerHTML = 'сегодня';
             }
-            dateList[i].innerHTML = dateFormatter.format(date);
-            tDayList[i].innerHTML = 'днём +' + dataFile[i].temperature.day + '°';
-            tNightList[i].innerHTML = 'ночью +' + dataFile[i].temperature.night + '°';
-            cloudList[i].innerHTML = dataFile[i].cloudiness + ',';
+            dateList[i].innerHTML = dateFormatter.format(filteredDays[i].date);
+            tDayList[i].innerHTML = 'днём +' + filteredDays[i].temperature.day + '°';
+            tNightList[i].innerHTML = 'ночью +' + filteredDays[i].temperature.night + '°';
+            cloudList[i].innerHTML = filteredDays[i].cloudiness + ',';
 
-            if (dataFile[i].rain === true) {
+            if (filteredDays[i].rain === true) {
                 newImg.setAttribute("src", "images/Rain2.png");
                 sliderItem[i].insertBefore(newImg, tDayList[i]);
                 rainList[i].innerHTML = 'дождь'
-            } else if (dataFile[i].cloudiness === 'облачно') {
+            } else if (filteredDays[i].cloudiness === 'облачно') {
                 newImg.setAttribute("src", "images/Cloud2.png");
                 sliderItem[i].insertBefore(newImg, tDayList[i]);
                 rainList[i].innerHTML = 'без осадков'
@@ -211,7 +134,6 @@ const dataFile =     [
                 rainList[i].innerHTML = 'без осадков'
             }
 
-            incrementDate();
         }
     };
     headerFiller();
