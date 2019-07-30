@@ -85,8 +85,9 @@ const dataFile =     [
 
 (function () {
     let position = 0;
-    const maxPos = -512;
-    const minPos = 0;
+    let n = 8;
+    let maxPos = (-256*(n-4));
+    let minPos = 0;
     let container = document.querySelector('.slider__container');
     let buttonRight = document.querySelector('.slider__control_right');
     let buttonLeft = document.querySelector('.slider__control_left');
@@ -135,8 +136,10 @@ const dataFile =     [
         return date;
     };
 
+
+
     const slideCreator = function() {
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < n; i++) {
             newSlide = document.createElement("div");
             newSlide.setAttribute('class', 'slider__item');
             container.appendChild(newSlide);
@@ -144,28 +147,28 @@ const dataFile =     [
     };
     slideCreator();
 
+    container.style.width = (256*n) + 'px';
+
     const itemCreator = function() {
         sliderItem = document.querySelectorAll('.slider__item');
         for (let i = 0; i < sliderItem.length; i++) {
-            newDay = document.createElement('p');
+            newDay = document.createElement('div');
             newDay.setAttribute("class", "item__day");
-            newDate = document.createElement('p');
+            newDate = document.createElement('div');
             newDate.setAttribute("class", "item__date");
-            newImg = document.createElement('img');
-            newTDay = document.createElement('p');
+            newTDay = document.createElement('div');
             newTDay.setAttribute("class", "item__temp-day");
-            newTNight = document.createElement('p');
+            newTNight = document.createElement('div');
             newTNight.setAttribute("class", "item__temp-night");
-            newCloud = document.createElement('p');
+            newCloud = document.createElement('div');
             newCloud.setAttribute("class", "item__cloud");
-            newRain = document.createElement('p');
+            newRain = document.createElement('div');
             newRain.setAttribute("class", "item__rain");
-            newSnow = document.createElement('p');
+            newSnow = document.createElement('div');
             newSnow.setAttribute("class", "item__snow");
 
             sliderItem[i].appendChild(newDay);
             sliderItem[i].appendChild(newDate);
-            sliderItem[i].appendChild(newImg);
             sliderItem[i].appendChild(newTDay);
             sliderItem[i].appendChild(newTNight);
             sliderItem[i].appendChild(newCloud);
@@ -176,16 +179,19 @@ const dataFile =     [
     itemCreator();
 
     const itemFiller = function() {
-        let dayList = document.querySelectorAll('.item__day');
-        let dateList = document.querySelectorAll('.item__date');
-        let imageList = document.querySelectorAll('.item__image');
-        let tDayList = document.querySelectorAll('.item__temp-day');
-        let tNightList = document.querySelectorAll('.item__temp-night');
-        let cloudList = document.querySelectorAll('.item__cloud');
-        let rainList = document.querySelectorAll('.item__rain');
+        dayList = document.querySelectorAll('.item__day');
+        dateList = document.querySelectorAll('.item__date');
+        tDayList = document.querySelectorAll('.item__temp-day');
+        tNightList = document.querySelectorAll('.item__temp-night');
+        cloudList = document.querySelectorAll('.item__cloud');
+        rainList = document.querySelectorAll('.item__rain');
         for (let i = 0; i < sliderItem.length; i++) {
-            let newImg = document.createElement('img');
-            dayList[i].innerHTML = dayFormatter.format(date);
+            newImg = document.createElement('img');
+            if (i !== 0) {
+                dayList[i].innerHTML = dayFormatter.format(date);
+            } else {
+                dayList[i].innerHTML = 'сегодня';
+            }
             dateList[i].innerHTML = dateFormatter.format(date);
             tDayList[i].innerHTML = 'днём +' + dataFile[i].temperature.day + '°';
             tNightList[i].innerHTML = 'ночью +' + dataFile[i].temperature.night + '°';
@@ -193,17 +199,18 @@ const dataFile =     [
 
             if (dataFile[i].rain === true) {
                 newImg.setAttribute("src", "images/Rain2.png");
-                imageList[i].appendChild(newImg);
+                sliderItem[i].insertBefore(newImg, tDayList[i]);
                 rainList[i].innerHTML = 'дождь'
             } else if (dataFile[i].cloudiness === 'облачно') {
                 newImg.setAttribute("src", "images/Cloud2.png");
-                imageList[i].appendChild(newImg);
+                sliderItem[i].insertBefore(newImg, tDayList[i]);
                 rainList[i].innerHTML = 'без осадков'
             } else {
                 newImg.setAttribute("src", "images/Sun2.png");
-                imageList[i].appendChild(newImg);
+                sliderItem[i].insertBefore(newImg, tDayList[i]);
                 rainList[i].innerHTML = 'без осадков'
             }
+
             incrementDate();
         }
     };
