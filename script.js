@@ -9,7 +9,6 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
     const buttonRight = document.querySelector('.slider__control_right');
     const buttonLeft = document.querySelector('.slider__control_left');
     const headerDate = document.querySelector('.location');
-    //let date = (Date.now()-(24*60*60*1000));
     buttonLeft.disabled = true;
     const dateFormatter = new Intl.DateTimeFormat('ru', {month: "long", day: "numeric"});
     const dayFormatter = new Intl.DateTimeFormat('ru', {weekday: "long"});
@@ -135,6 +134,5 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
     };
     headerFiller();
     itemFiller();
-    // dayList.innerHTML = formatter.format(date);
 
 }) ();
