@@ -49,6 +49,36 @@ const dataFile =     [
         snow: false,
         rain: false,
     },
+    {
+        date: 1559592000000,
+        temperature: {
+            night: 12,
+            day: 21,
+        },
+        cloudiness: 'облачно',  // 86400000
+        snow: false,
+        rain: false,
+    },
+    {
+        date: 1559678400000,
+        temperature: {
+            night: 19,
+            day: 29,
+        },
+        cloudiness: 'облачно',
+        snow: false,
+        rain: true,
+    },
+    {
+        date: 1559847600000,
+        temperature: {
+            night: 12,
+            day: 21,
+        },
+        cloudiness: 'облачно',
+        snow: false,
+        rain: false,
+    },
 ];
 
 
@@ -65,6 +95,7 @@ const dataFile =     [
     buttonLeft.disabled = true;
     let dateFormatter = new Intl.DateTimeFormat('ru', {month: "long", day: "numeric"});
     let dayFormatter = new Intl.DateTimeFormat('ru', {weekday: "long"});
+
 
     const sliderRight = function() {
         position = position - 256;
@@ -104,24 +135,34 @@ const dataFile =     [
         return date;
     };
 
+    const slideCreator = function() {
+        for (let i = 0; i < 7; i++) {
+            newSlide = document.createElement("div");
+            newSlide.setAttribute('class', 'slider__item');
+            container.appendChild(newSlide);
+        }
+    };
+    slideCreator();
+
     const itemCreator = function() {
         sliderItem = document.querySelectorAll('.slider__item');
-        let newDay = document.createElement('p');
-        newDay.setAttribute("class", ".item__day");
-        let newDate = document.createElement('p');
-        newDate.setAttribute("class", ".item__date");
-        let newImg = document.createElement('img');
-        let newTDay = document.createElement('p');
-        newTDay.setAttribute("class", ".item__temp-day");
-        let newTNight = document.createElement('p');
-        newTNight.setAttribute("class", ".item__temp-night");
-        let newCloud = document.createElement('p');
-        newCloud.setAttribute("class", ".item__cloud");
-        let newRain = document.createElement('p');
-        newRain.setAttribute("class", ".item__rain");
-        let newSnow = document.createElement('p');
-        newSnow.setAttribute("class", ".item__snow");
         for (let i = 0; i < sliderItem.length; i++) {
+            newDay = document.createElement('p');
+            newDay.setAttribute("class", "item__day");
+            newDate = document.createElement('p');
+            newDate.setAttribute("class", "item__date");
+            newImg = document.createElement('img');
+            newTDay = document.createElement('p');
+            newTDay.setAttribute("class", "item__temp-day");
+            newTNight = document.createElement('p');
+            newTNight.setAttribute("class", "item__temp-night");
+            newCloud = document.createElement('p');
+            newCloud.setAttribute("class", "item__cloud");
+            newRain = document.createElement('p');
+            newRain.setAttribute("class", "item__rain");
+            newSnow = document.createElement('p');
+            newSnow.setAttribute("class", "item__snow");
+
             sliderItem[i].appendChild(newDay);
             sliderItem[i].appendChild(newDate);
             sliderItem[i].appendChild(newImg);
@@ -142,14 +183,13 @@ const dataFile =     [
         let tNightList = document.querySelectorAll('.item__temp-night');
         let cloudList = document.querySelectorAll('.item__cloud');
         let rainList = document.querySelectorAll('.item__rain');
-        for (let i = 0; i< dayList.length; i++) {
+        for (let i = 0; i < sliderItem.length; i++) {
             let newImg = document.createElement('img');
             dayList[i].innerHTML = dayFormatter.format(date);
             dateList[i].innerHTML = dateFormatter.format(date);
             tDayList[i].innerHTML = 'днём +' + dataFile[i].temperature.day + '°';
             tNightList[i].innerHTML = 'ночью +' + dataFile[i].temperature.night + '°';
             cloudList[i].innerHTML = dataFile[i].cloudiness + ',';
-            incrementDate();
 
             if (dataFile[i].rain === true) {
                 newImg.setAttribute("src", "images/Rain2.png");
@@ -164,6 +204,7 @@ const dataFile =     [
                 imageList[i].appendChild(newImg);
                 rainList[i].innerHTML = 'без осадков'
             }
+            incrementDate();
         }
     };
     headerFiller();
