@@ -10,6 +10,7 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
     const buttonLeft = document.querySelector('.slider__control_left');
     const headerDate = document.querySelector('.location');
     buttonLeft.disabled = true;
+    buttonLeft.style.display = 'none';
     const dateFormatter = new Intl.DateTimeFormat('ru', {month: "long", day: "numeric"});
     const dayFormatter = new Intl.DateTimeFormat('ru', {weekday: "long"});
 
@@ -38,18 +39,22 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
         sliderRight();
         if (position < minPos) {
             buttonLeft.disabled = false;
+            buttonLeft.style.display = 'block';
         }
         if (position <= maxPos) {
             buttonRight.disabled = true;
+            buttonRight.style.display = 'none';
         }
     });
     buttonLeft.addEventListener('click', () => {
         sliderLeft();
         if (position >= minPos) {
             buttonLeft.disabled = true;
+            buttonLeft.style.display = 'none';
         }
         if (position > maxPos) {
             buttonRight.disabled = false;
+            buttonRight.style.display = 'block';
         }
     });
 
@@ -59,7 +64,7 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
 
     const slideCreator = () => {
         for (let i = 0; i < filteredDays.length; i++) {
-            newSlide = document.createElement("div");
+            let newSlide = document.createElement("div");
             newSlide.setAttribute('class', 'slider__item');
             container.appendChild(newSlide);
         }
