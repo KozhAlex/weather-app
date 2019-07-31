@@ -92,26 +92,30 @@ body {
 .slider__control {
     position: absolute;
     top: 50%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     cursor: pointer;
-    color: white;
+    color: lightgray;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 56px;
     transition: 0.6s ease;
-    height: 50px;
     transform: translateY(-50%);
-}
-
-.slider__control_left {
-    left: -30px;
-}
-
-.slider__control_right {
-    right: -30px;
+    background: none;
+    border: none;
 }
 
 .slider__control:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background: none;
+    color: black;
 }
+
+.slider__control:focus {
+    outline: none;
+}
+
+.slider__control_left {
+    left: -50px;
+}
+
+.slider__control_right {
+    right: -50px;
+}
+
