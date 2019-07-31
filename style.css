@@ -50,17 +50,17 @@ body {
     outline: ghostwhite solid 2px;
 }
 
-.item__day, .item__date, .item__image, .item__temp-day, .item__temp-night, .item__cloud, .item__rain {
+.item__weekday, .item__day, .item__image, .item__temp-day, .item__temp-night, .item__cloud, .item__precip {
     text-align: center;
     font-family: sans-serif;
 }
 
-.item__day {
+.item__weekday {
     margin-top: 15px;
     font-weight: 600;
 }
 
-.item__date {
+.item__day {
     margin-top: 12px;
     font-weight: bold;
     font-size: 26px;
@@ -84,7 +84,7 @@ body {
     font-weight: 600;
 }
 
-.item__rain {
+.item__precip {
     margin-bottom: 15px;
     font-weight: 600;
 }
