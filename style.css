@@ -4,22 +4,18 @@
     box-sizing: border-box;
 }
 
-.header {
-    text-align: center;
+body {
     font-family: sans-serif;
+    background-color: ghostwhite;
 }
 
-body {
-    background-color: ghostwhite;
+.header {
+    text-align: center;
 }
 
 .location {
     text-align: center;
-    font-family: sans-serif;
 }
-
-.slider {
- }
 
 .slider__box {
     position: relative;
@@ -28,31 +24,31 @@ body {
 }
 
 .slider__wrapper {
-    position: relative;
-    height: auto;
     margin: auto;
     overflow: hidden;
-
 }
 
 .slider__container {
     position: relative;
     width: 1024px;
     display: flex;
-    flex-direction: row;
     transition: transform 0.6s ease;
 }
 
 .slider__item {
-    align-self: stretch;
     width: 256px;
     background-color: white;
     outline: ghostwhite solid 2px;
 }
 
-.item__weekday, .item__day, .item__image, .item__temp-day, .item__temp-night, .item__cloud, .item__precip {
+.item__weekday,
+.item__day,
+.item__image,
+.item__temp-day,
+.item__temp-night,
+.item__cloud,
+.item__precip {
     text-align: center;
-    font-family: sans-serif;
 }
 
 .item__weekday {
@@ -66,7 +62,8 @@ body {
     font-size: 26px;
 }
 .item__image {
-    margin-top: -20px;
+    height: 256px;
+    max-width: 256px;
 }
 
 .item__temp-day {
@@ -92,14 +89,14 @@ body {
 .slider__control {
     position: absolute;
     top: 50%;
-    cursor: pointer;
-    color: lightgray;
-    font-weight: bold;
-    font-size: 56px;
     transition: 0.6s ease;
     transform: translateY(-50%);
+    color: lightgray;
     background: none;
     border: none;
+    font-weight: bold;
+    font-size: 56px;
+    cursor: pointer;
 }
 
 .slider__control:hover {

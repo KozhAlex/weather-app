@@ -78,6 +78,7 @@ const dataFile = [{'date':1564516800000,'temperature':{'night':14,'day':28},'clo
         }
         newImg.setAttribute('src', imgSrc);
         newImg.setAttribute('alt', imgAlt);
+        newImg.setAttribute('class', 'item__image');
         return newImg;
     };
 
