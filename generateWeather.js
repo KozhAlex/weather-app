@@ -5,7 +5,7 @@ function getRandomInt(min, max) {
 const cloudinessCases = ["ясно", "облачно"];
 
 const daysArray = [];
-const daysCount = 10;
+const daysCount = 20;
 const yesterday = new Date();
 yesterday.setHours(0, 0, 0, 0);
 yesterday.setDate(yesterday.getDate() - 1);
@@ -20,8 +20,8 @@ for (let i = 0; i < daysCount; i++) {
         },
         cloudiness:
             cloudinessCases[Math.floor(Math.random() * cloudinessCases.length)],
-        snow: Math.random() >= 0.5,
-        rain: Math.random() >= 0.5
+        snow: Math.random() >= 0.75,
+        rain: Math.random() >= 0.75
     };
     daysArray.push(day);
     curentDate = curentDate + 24 * 60 * 60 * 1000;
