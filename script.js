@@ -1,10 +1,9 @@
-const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"cloudiness":"ясно","snow":false,"rain":true},{"date":1564430400000,"temperature":{"night":0,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564516800000,"temperature":{"night":6,"day":20},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564603200000,"temperature":{"night":10,"day":28},"cloudiness":"облачно","snow":false,"rain":true},{"date":1564689600000,"temperature":{"night":2,"day":16},"cloudiness":"ясно","snow":true,"rain":false},{"date":1564776000000,"temperature":{"night":9,"day":24},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564862400000,"temperature":{"night":9,"day":27},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564948800000,"temperature":{"night":6,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1565035200000,"temperature":{"night":9,"day":23},"cloudiness":"облачно","snow":false,"rain":true},{"date":1565121600000,"temperature":{"night":6,"day":28},"cloudiness":"облачно","snow":false,"rain":true}];
+const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"cloudiness":"ясно","snow":false,"rain":true},{"date":1564430400000,"temperature":{"night":0,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564516800000,"temperature":{"night":6,"day":20},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564603200000,"temperature":{"night":10,"day":28},"cloudiness":"облачно","snow":false,"rain":true},{"date":1564689600000,"temperature":{"night":2,"day":16},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564776000000,"temperature":{"night":9,"day":24},"cloudiness":"облачно","snow":false,"rain":false},{"date":1564862400000,"temperature":{"night":9,"day":27},"cloudiness":"ясно","snow":false,"rain":false},{"date":1564948800000,"temperature":{"night":6,"day":16},"cloudiness":"облачно","snow":false,"rain":false},{"date":1565035200000,"temperature":{"night":9,"day":23},"cloudiness":"облачно","snow":false,"rain":true},{"date":1565121600000,"temperature":{"night":6,"day":28},"cloudiness":"ясно","snow":false,"rain":true}];
 
 
 
 (() => {
-    let position = 0;
-    const minPos = 0;
+
     const container = document.querySelector('.slider__container');
     const buttonRight = document.querySelector('.slider__control_right');
     const buttonLeft = document.querySelector('.slider__control_left');
@@ -41,43 +40,6 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
     const daysFilter = ((dailyInfo) => isTodayAndLater(dailyInfo.date));
 
     const filteredDays = dataFile.filter(daysFilter);
-
-    const sliderItemWidth = 256;
-
-    let maxPos = -sliderItemWidth*(filteredDays.length-4);
-
-    const sliderRight = () => {
-        position = position - sliderItemWidth;
-        container.style.transform = 'translateX(' + position + 'px)';
-    };
-
-    const sliderLeft = () => {
-        position = position + sliderItemWidth;
-        container.style.transform = 'translateX(' + position + 'px)';
-    };
-
-    buttonRight.addEventListener('click', () => {
-        sliderRight();
-        if (position < minPos) {
-            buttonLeft.disabled = false;
-            buttonLeft.style.display = 'block';
-        }
-        if (position <= maxPos) {
-            buttonRight.disabled = true;
-            buttonRight.style.display = 'none';
-        }
-    });
-    buttonLeft.addEventListener('click', () => {
-        sliderLeft();
-        if (position >= minPos) {
-            buttonLeft.disabled = true;
-            buttonLeft.style.display = 'none';
-        }
-        if (position > maxPos) {
-            buttonRight.disabled = false;
-            buttonRight.style.display = 'block';
-        }
-    });
 
     const headerFiller = () => {
         headerDate.innerHTML = 'Самара, ' + dateFormatter.format(filteredDays[0].date) + ', ' + dayFormatter.format(filteredDays[0].date);
@@ -179,8 +141,57 @@ const dataFile =     [{"date":1564344000000,"temperature":{"night":5,"day":26},"
         }
     };
 
+    const sliderItemWidth = 256;
+    let position = 0;
+    const minPos = 0;
+    const maxPos = filteredDays.length-4;
+
     container.style.width = (sliderItemWidth*filteredDays.length) + 'px';
 
+    const sliderRight = () => {
+        position++;
+        container.style.transform = `translateX(${position*(-sliderItemWidth)}px)`;
+    };
+
+    const sliderLeft = () => {
+        position--;
+        container.style.transform = `translateX(${position*(-sliderItemWidth)}px)`;
+    };
+
+    const addSlide = (index) => {
+        const slide = createSlide(filteredDays[index]);
+        container.appendChild(slide);
+    };
+
+    const handleRightButtonClick = () => {
+        sliderRight();
+        if (position > minPos) {
+            buttonLeft.disabled = false;
+            buttonLeft.style.display = 'block';
+        }
+        if (position >= maxPos) {
+            buttonRight.disabled = true;
+            buttonRight.style.display = 'none';
+        }
+        if (position < maxPos) {
+            addSlide(position + 4);
+        }
+
+    };
+    const handleLeftButtonClick = () => {
+        sliderLeft();
+        if (position <= minPos) {
+            buttonLeft.disabled = true;
+            buttonLeft.style.display = 'none';
+        }
+        if (position < maxPos) {
+            buttonRight.disabled = false;
+            buttonRight.style.display = 'block';
+        }
+    };
+
+    buttonRight.addEventListener('click', handleRightButtonClick);
+    buttonLeft.addEventListener('click', handleLeftButtonClick);
 
     headerFiller();
     filler();
